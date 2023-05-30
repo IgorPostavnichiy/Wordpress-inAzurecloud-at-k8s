@@ -7,7 +7,3 @@ output "kube_config" {
 output "resource_group_name" {
   value = azurerm_resource_group.product.name
 }
-
-# output "wordpress_url" {
-#   value = "https://${azurerm_dns_cname_record.aks-dns-zone.name}"
-# }
