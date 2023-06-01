@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# RESOURCE_GROUP_NAME=tfstoragemon
-# STORAGE_ACCOUNT_NAME=tfstorageaccmon
-# CONTAINER_NAME=containername
+ RESOURCE_GROUP_NAME=tfstoragetest
+ STORAGE_ACCOUNT_NAME=tfstorageactest
+ CONTAINER_NAME=containertest
 
 # Authenticate with Azure using environment variables
 az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
