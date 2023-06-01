@@ -5,10 +5,10 @@
  CONTAINER_NAME=containertest
 
 # Authenticate with Azure using environment variables
-az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
 
 # Set the subscription context
-az account set --subscription $ARM_SUBSCRIPTION_ID
+az account set --subscription $AZURE_SUBSCRIPTION_ID
 
 # Check if storage account exists
 if  az storage account show --name $STORAGE_ACCOUNT_NAME --query id --output tsv >/dev/null 2>&1; then
