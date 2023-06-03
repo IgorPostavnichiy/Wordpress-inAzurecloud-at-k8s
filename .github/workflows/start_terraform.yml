@@ -1,13 +1,12 @@
 name: My-Start-Terraform
 
 on:
-  workflow_dispatch:
   push:
     paths:
     - 'terraform-azure/**'
     - '.github/workflows/start_terraform.yml'
     branches:
-    - main
+    - master
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
