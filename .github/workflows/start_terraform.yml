@@ -1,4 +1,4 @@
-name: My-Start-Terraform
+name: Deploy Terraform K8S Azure
 
 on:
   push:
