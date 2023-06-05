@@ -107,4 +107,3 @@ resource "azurerm_dns_a_record" "product" {
   ttl                 = 300
   target_resource_id  = azurerm_public_ip.product.id
 }
-
