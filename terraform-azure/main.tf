@@ -28,7 +28,7 @@ resource "local_file" "kubeconfig" {
   content  = azurerm_kubernetes_cluster.product.kube_config_raw
 }
 
-# Create MySql Server 
+# Create Sql Server 
 resource "azurerm_mysql_server" "product" {
   name                = "mysql-wpigor"
   location            = azurerm_resource_group.product.location
@@ -91,7 +91,6 @@ resource "azurerm_lb" "product" {
     name                = "wp-team.pp.ua"
     resource_group_name = azurerm_resource_group.product.name
 }
-
 
 resource "azurerm_dns_cname_record" "product" {
   name                = "wordpress"
