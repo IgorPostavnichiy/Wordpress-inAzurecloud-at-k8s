@@ -7,7 +7,6 @@ variable "agent_count" {
   default = 1
 }
 
-
 variable "azure_subscription_id" {
   type    = string
   default = "subscription_id"
@@ -38,7 +37,6 @@ variable "resource_group_name" {
   default = "my-resource-group"
 }
 
-
 variable "cluster_name" {
   type = string
   description = "AKS name in Azure"
@@ -53,7 +51,3 @@ variable "system_node_count" {
 type = number
 description = "Number of AKS worker nodes"
 }
-
-
-
-
