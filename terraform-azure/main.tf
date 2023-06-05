@@ -35,7 +35,7 @@ resource "azurerm_mysql_server" "product" {
   resource_group_name = azurerm_resource_group.product.name
 
   administrator_login          = "igorsql"
-  administrator_login_password = "test1234"
+  administrator_login_password = "I991$426yUQ"
 
   sku_name   = "B_Gen5_2"
   storage_mb = 5120
