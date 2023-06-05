@@ -16,7 +16,7 @@ env:
   KUBECONFIG: ${{ github.workspace }}/terraform-azure/kubeconfig
 
 jobs:
-  terraform:
+  terraform-CI:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -54,7 +54,7 @@ jobs:
       run: terraform destroy -auto-approve
 
   terraform-CD:
-      needs: terraform
+      needs: terraform-CI
       if: "!contains(github.event.head_commit.message, 'destroy')"
       runs-on: ubuntu-latest
       defaults:
