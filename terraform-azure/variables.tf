@@ -30,7 +30,7 @@ variable "azure_tenant_id" {
 
 variable "location" {
   type    = string
-  default = "eastus"  # Set a default value or specify a different value
+  default = "eastus" 
 }
 
 variable "resource_group_name" {
