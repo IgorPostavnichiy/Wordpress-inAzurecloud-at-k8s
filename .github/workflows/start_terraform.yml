@@ -47,32 +47,32 @@ jobs:
       if: contains(github.event.head_commit.message, 'destroy')
       run: terraform destroy -auto-approve
 
-  # terraform-CD:
-  #     needs: terraform
-  #     if: "!contains(github.event.head_commit.message, 'destroy')"
-  #     runs-on: ubuntu-latest
-  #     defaults:
-  #       run:
-  #         working-directory: terraform-azure
+  terraform-CD:
+      needs: terraform
+      if: "!contains(github.event.head_commit.message, 'destroy')"
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: terraform-azure
 
-  #     steps:
-  #     - name: Clon Rep
-  #       uses: actions/checkout@v3
+      steps:
+      - name: Clon Rep
+        uses: actions/checkout@v3
 
-  #     - name: Setup kubectl
-  #       uses: azure/setup-kubectl@v3
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
 
-  #     - name: Download kubeconfig
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: kubeconfig
-  #         path: terraform-azure
+      - name: Download kubeconfig
+        uses: actions/download-artifact@v3
+        with:
+          name: kubeconfig
+          path: terraform-azure
     
-  #     - name: Apply Kubernetes manifest
-  #       run: kubectl apply -f init.yml
+      - name: Apply Kubernetes manifest
+        run: kubectl apply -f init.yml
     
-  #     - name: Wait for 15 seconds()
-  #       run: sleep 20s
+      - name: Wait for 15 seconds()
+        run: sleep 20s
 
-  #     - name: Check Service
-  #       run: kubectl get service
+      - name: Check Service
+        run: kubectl get service
