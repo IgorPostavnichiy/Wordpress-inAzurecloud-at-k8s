@@ -28,7 +28,7 @@ resource "local_file" "kubeconfig" {
   content  = azurerm_kubernetes_cluster.product.kube_config_raw
 }
 
-# Create Sql Server 
+# Create sql server
 resource "azurerm_mysql_server" "product" {
   name                = "mysql-wpigor"
   location            = azurerm_resource_group.product.location
