@@ -37,11 +37,11 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color -lock=false
+      run: terraform plan -no-color
 
     - name: terraform apply
       if: "!contains(github.event.head_commit.message, 'destroy')"
-      run: terraform apply -auto-approve -lock=false
+      run: terraform apply -auto-approve
 
     - name: Upload kubeconfig artifact
       uses: actions/upload-artifact@v3
