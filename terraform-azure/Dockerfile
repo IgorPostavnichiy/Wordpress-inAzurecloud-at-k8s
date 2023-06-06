@@ -25,5 +25,5 @@ ENV PASSWORD 1-qwerty
 # Вынесенные скрипты
 COPY scripts/setup-wp.sh /usr/local/bin/setup-wp.sh
 RUN chmod +x /usr/local/bin/setup-wp.sh /usr/local/bin/setup-wp.sh
-# Установить entrypoint на setup-wp.sh
+# Setup entrypoint на setup-wp.sh
 ENTRYPOINT ["/usr/local/bin/setup-wp.sh"]
