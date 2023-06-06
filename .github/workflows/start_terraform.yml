@@ -1,7 +1,6 @@
 name: Deploy Terraform K8S Azure
 
 on:
-  workflow_dispatch:
   push:
     paths:
     - 'terraform-azure/**'
