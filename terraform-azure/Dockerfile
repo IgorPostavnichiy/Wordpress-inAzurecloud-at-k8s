@@ -15,7 +15,7 @@ RUN apk add --no-cache \
         php7-xml \
         php7-xmlwriter \
         php7-simplexml
-# Скачать и установить WP-CLI
+# Download and setup WP-CLI
 RUN wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x /usr/local/bin/wp
 # Set the server name and login credentials
