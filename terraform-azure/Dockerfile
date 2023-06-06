@@ -22,7 +22,7 @@ RUN wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 ENV SERVER_NAME mysql-wpigor.mysql.database.azure.com
 ENV USER_NAME mysqladmin@mysql-wpigor
 ENV PASSWORD 1-qwerty
-# Вынесенные скрипты
+# Scripts
 COPY scripts/setup-wp.sh /usr/local/bin/setup-wp.sh
 RUN chmod +x /usr/local/bin/setup-wp.sh /usr/local/bin/setup-wp.sh
 # Setup entrypoint на setup-wp.sh
