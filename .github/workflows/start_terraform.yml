@@ -1,12 +1,13 @@
 name: Deploy Terraform K8S Azure
 
 on:
+  workflow_dispatch:
   push:
     paths:
     - 'terraform-azure/**'
     - '.github/workflows/start_terraform.yml'
     branches:
-    - master
+    - main
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
