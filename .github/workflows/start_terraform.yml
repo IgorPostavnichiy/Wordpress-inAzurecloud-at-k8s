@@ -31,25 +31,25 @@ jobs:
         SCRIPT_DIR: ${{ github.workspace }}/terraform-azure/scripts
       run: bash  $SCRIPT_DIR/create_storage.sh
 
-    - name: Terraform Init
+    - name: terraform Init
       id: init
       run: terraform init
 
-    - name: Terraform Plan
+    - name: terraform Plan
       id: plan
-      run: terraform plan -no-color -lock=false
+      run: terraform plan -no-color
 
     - name: terraform apply
       if: "!contains(github.event.head_commit.message, 'destroy')"
-      run: terraform apply -auto-approve -lock=false
+      run: terraform apply -auto-approve
 
-    - name: Upload kubeconfig artifact
+    - name: upload kubeconfig artifact
       uses: actions/upload-artifact@v3
       with:
         name: kubeconfig
         path: terraform-azure/kubeconfig
 
-    - name: Terraform Destroy
+    - name: terraform destroy
       if: contains(github.event.head_commit.message, 'destroy')
       run: terraform destroy -auto-approve
 
