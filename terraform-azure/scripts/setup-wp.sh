@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# Mysql/create database 
 mysql -h $SERVER_NAME -u $USER_NAME -p$PASSWORD -P 3306 -e "\
    CREATE DATABASE IF NOT EXISTS test_manifest12; \
     USE test_manifest12; \
@@ -10,7 +10,7 @@ if [  -f /var/www/html/wp-config.php ]; then
     wp --allow-root --path=/var/www/html theme install hestia    && \
     wp --allow-root --path=/var/www/html theme activate hestia     
 else    
-    # Configure WP-CLI and install plugins and themes
+# Configure WP-CLI and install plugins and themes
     wp core download --path=/var/www/html --allow-root && \
     wp --allow-root --path=/var/www/html config create \
       --dbhost=mysql-wpmon.mysql.database.azure.com\
