@@ -11,73 +11,60 @@ on:
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   KUBECONFIG: ${{ github.workspace }}/terraform-azure/kubeconfig
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
 jobs:
   terraform-CI:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: terraform-azure
-
+      
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - name: Clon Rep
+      uses: actions/checkout@v3  
 
     - name: Create Storage
       env:
         SCRIPT_DIR: ${{ github.workspace }}/terraform-azure/scripts
       run: bash  $SCRIPT_DIR/create_storage.sh
 
-    - name: terraform Init
-      id: init
+    - name: terraform init
       run: terraform init
 
-    - name: terraform Plan
+    - name: terraform plan
       id: plan
-      run: terraform plan 
-
+      run: terraform plan
+      
     - name: terraform apply
       if: "!contains(github.event.head_commit.message, 'destroy')"
       run: terraform apply -auto-approve
 
-    - name: upload kubeconfig artifact
+    - name: Upload kubeconfig artifact
       uses: actions/upload-artifact@v3
       with:
         name: kubeconfig
-        path: terraform-azure/kubeconfig
-
-    - name: terraform destroy
+        path: terraform-azure/kubeconfig 
+      
+    - name: Terraform Destroy
       if: contains(github.event.head_commit.message, 'destroy')
       run: terraform destroy -auto-approve
 
   terraform-CD:
-      needs: terraform-CI
-      if: "!contains(github.event.head_commit.message, 'destroy')"
-      runs-on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: terraform-azure
+    needs: 
+      - terraform-CI
+    if: "!contains(github.event.head_commit.message, 'destroy') "
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform-azure
 
-      steps:
-      - name: Clon Rep
-        uses: actions/checkout@v3
-
-      - name: Login to DockerHub
-      if: contains(github.event.head_commit.message, 'build')
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build and Push Docker Image
-      if: contains(github.event.head_commit.message, 'build')
-      uses: docker/build-push-action@v4
-      with:
-        context: terraform-azure/
-        push: true
-        tags: igorpostavnichiy/init_db_wp:01
+    steps:
+    - name: Clon Rep
+      uses: actions/checkout@v3
 
     - name: Setup kubectl
       uses: azure/setup-kubectl@v3
@@ -87,9 +74,12 @@ jobs:
       with:
         name: kubeconfig
         path: terraform-azure
-   
+
     - name: Install Tekton
+      if: contains(github.event.head_commit.message, 'init')
       env:
+        DOCKER_USERNAME : ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD : ${{ secrets.DOCKER_PASSWORD }}
         SCRIPT_DIR: ${{ github.workspace }}/terraform-azure/scripts
       run: bash  $SCRIPT_DIR/install-tekton.sh
 
