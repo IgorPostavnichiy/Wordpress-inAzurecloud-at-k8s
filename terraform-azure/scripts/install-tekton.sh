@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Install Tekton CLI
 echo "1 ----- > Tekton CLI"
 curl -LO https://github.com/tektoncd/cli/releases/download/v0.30.1/tektoncd-cli-0.30.1_Linux-64bit.deb
