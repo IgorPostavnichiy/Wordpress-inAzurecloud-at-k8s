@@ -54,7 +54,7 @@ else
     echo "Tekton SSH key already exists on GitHub"
 
 fi   
-# create your Docker registry secret, for example:
+# Create your Docker registry secret, for example:
 cat > regsecret.yaml << EOM
 kind: Secret
 apiVersion: v1
