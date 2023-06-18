@@ -7,7 +7,7 @@ on:
     - '.github/workflows/start_init.yml'
     branches:
     - main
-workflow_dispatch:
+    workflow_dispatch:
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
