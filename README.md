@@ -8,7 +8,7 @@ deploy_AKS
 
 Status of Last Deployment with Tekton:<br>
 
-<img src="https://github.com/IgorPostavnichiy/terraform-azure-deployK8S-CI-CD/workflows/Deploy Deploy Terraform K8S Azure with Tekton/badge.svg?branch=main"><br>
+<img src="https://github.com/IgorPostavnichiy/terraform-azure-deployK8S-CI-CD/workflows/Deploy Terraform K8S Azure with Tekton/badge.svg?branch=main"><br>
 
 deploy_AKS
 
