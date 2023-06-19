@@ -55,11 +55,11 @@ else
 
 fi   
 # Create your Docker registry secret, for example:
-cat > regsecret.yaml << EOM
+cat > secret.yaml << EOM
 kind: Secret
 apiVersion: v1
 metadata:
-  name: regsecret
+  name: secret
   annotations:
     tekton.dev/docker-0: https://index.docker.io/
 type: kubernetes.io/basic-auth
@@ -68,7 +68,7 @@ stringData:
     password: $DOCKER_PASSWORD
 EOM
 
-kubectl apply -f regsecret.yaml
+kubectl apply -f secret.yaml
 kubectl apply -f tekton/
 
 # Create a triggers secret for GitHub:
