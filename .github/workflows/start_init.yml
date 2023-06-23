@@ -1,13 +1,13 @@
 name: Deploy Terraform K8S Azure
 
 on:
-  push:
-    paths:
-    - 'terraform-azure/**'
-    - '.github/workflows/start_terraform.yml'
-    branches:
-    - main
-
+  # push:
+  #   paths:
+  #   - 'terraform-azure/**'
+  #   - '.github/workflows/start_init.yml'
+  #   branches:
+  #   - main
+    workflow_dispatch:
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -54,46 +54,31 @@ jobs:
       run: terraform destroy -auto-approve
 
   terraform-CD:
-    needs: 
-      - terraform-CI
-    if: "!contains(github.event.head_commit.message, 'destroy') "
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform-azure
+      needs: terraform-CI
+      if: "!contains(github.event.head_commit.message, 'destroy')"
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: terraform-azure
 
-    steps:
-    - name: Clon Rep
-      uses: actions/checkout@v3
+      steps:
+      - name: Clon Rep
+        uses: actions/checkout@v3
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
 
-    - name: Setup kubectl
-      uses: azure/setup-kubectl@v3
-
-    - name: Download kubeconfig
-      uses: actions/download-artifact@v3
-      with:
-        name: kubeconfig
-        path: terraform-azure
+      - name: Download kubeconfig
+        uses: actions/download-artifact@v3
+        with:
+          name: kubeconfig
+          path: terraform-azure
     
-    - name: Install Tekton
-      env:
-        DOCKER_USERNAME : ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD : ${{ secrets.DOCKER_PASSWORD }}
-        TOKEN_TEKTON : ${{ secrets.TOKEN_TEKTON }}
-        SCRIPT_DIR: ${{ github.workspace }}/terraform-azure/scripts
-      run: bash  $SCRIPT_DIR/install-tekton.sh
+      - name: Apply Kubernetes manifest
+        run: kubectl apply -f init.yml
+    
+      - name: Wait for 15 seconds()
+        run: sleep 20s
 
-    - name: Apply Kubernetes manifest
-      run: kubectl apply -f init.yml
-
-    - name: Wait for 10 seconds()
-      run: sleep 10s
-
-    - name: Check Service
-      run: kubectl get service
+      - name: Check Service
+        run: kubectl get service

@@ -53,9 +53,9 @@ spec:
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
-          claimName: wp-pv-claim
+          claimName: wp-pv-claim        
 
-          
+
 ---
 apiVersion: v1
 kind: Service
@@ -69,3 +69,4 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer
+  
