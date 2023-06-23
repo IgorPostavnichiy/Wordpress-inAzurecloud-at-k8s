@@ -32,7 +32,7 @@ spec:
           - name: gitrepositoryurl
             value: "https://github.com/IgorPostavnichiy/terraform-azure-deployK8S-CI-CD"
           - name: IMAGE
-            value: "igorpostavnichiy/init_db_wp:01"
+            value: "igorpostavnichiy/init_db_wp"
           - name: TAG
             value: v1
         workspaces:
