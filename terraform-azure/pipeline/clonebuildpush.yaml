@@ -50,4 +50,4 @@ spec:
       params:
         - name: script  
           value: |
-            kubectl apply -f https://github.com/IgorPostavnichiy/terraform-azure-deployK8S-CI-CD/blob/main/terraform-azure/deploy.yml
+            kubectl apply -f https://raw.githubusercontent.com/IgorPostavnichiy/Wordpress-inAzurecloud-at-k8s/main/terraform-azure/deploy.yml

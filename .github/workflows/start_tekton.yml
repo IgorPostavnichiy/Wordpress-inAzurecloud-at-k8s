@@ -82,12 +82,16 @@ jobs:
         path: terraform-azure
     
     - name: Install Tekton
+      if: contains(github.event.head_commit.message, 'init')
       env:
         DOCKER_USERNAME : ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD : ${{ secrets.DOCKER_PASSWORD }}
-        TOKEN_TEKTON : ${{ secrets.TOKEN_TEKTON }}
-        SCRIPT_DIR: ${{ github.workspace }}/terraform-azure/scripts
+        SCRIPT_DIR: ${{ github.workspace }}/terraform_azure/scripts
       run: bash  $SCRIPT_DIR/install-tekton.sh
+
+    - name: Wait for 60 seconds
+      if: contains(github.event.head_commit.message, 'init')
+      run: sleep 60s
 
     - name: Create Webhook
       if: contains(github.event.head_commit.message, 'init')
@@ -114,3 +118,8 @@ jobs:
 
     - name: Check Service
       run: kubectl get service
+
+    - name: Get IP address
+      run: |
+          external_ip_wp=$(kubectl get svc wordpress -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+          echo "External IP WordPress: $external_ip_wp"

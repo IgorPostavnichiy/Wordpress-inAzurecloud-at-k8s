@@ -30,6 +30,15 @@ resource "local_file" "kubeconfig" {
 }
 
 
+
+# Create DNS record
+  resource "azurerm_dns_zone" "product" {
+    name                = "wp-team.pp.ua"
+    resource_group_name = azurerm_resource_group.product.name
+}
+
+# If you want to test deploy without Tekton and use manifest init.yml -> you need to delete this comments:
+
 # # Create SQL Server
 # resource "azurerm_mysql_server" "product" {
 #   name                = "mysql-wpigor"
@@ -87,12 +96,6 @@ resource "local_file" "kubeconfig" {
 #     backend_port                   = 80
 #     frontend_ip_configuration_name = "LoadBalancer_lb_public_ip"
 # }
-
-# Create DNS record
-  resource "azurerm_dns_zone" "product" {
-    name                = "wp-team.pp.ua"
-    resource_group_name = azurerm_resource_group.product.name
-}
 
 # resource "azurerm_dns_cname_record" "product" {
 #   name                = "wordpress"
