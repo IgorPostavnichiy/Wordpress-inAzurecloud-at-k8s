@@ -1,12 +1,12 @@
 name: Deploy Terraform K8S Azure with Tekton
 
 on:
-  push:
-    paths:
-    - 'terraform-azure/**'
-    - '.github/workflows/start_tekton.yml'
-    branches:
-    - main
+  # push:
+  #   paths:
+  #   - 'terraform-azure/**'
+  #   - '.github/workflows/start_tekton.yml'
+  #   branches:
+  #   - main
     workflow_dispatch:
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}

@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name  = "product"
+    resource_group_name  = "tfstoragetest"
     storage_account_name = "tfstorageactest"
     container_name       = "containertest"
     key                  = "terraform.st"
